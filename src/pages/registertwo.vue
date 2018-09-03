@@ -23,7 +23,7 @@
         <div class="inputTitle"><span class="necessary">*</span>所在城市</div>
         <van-field v-model="city" @focus="showArea" />
         <van-popup v-model="isShowArea" position="bottom" :overlay="false">
-          <van-area :area-list="areaList" @cancel="cancel" @confirm="confirm"/>
+          <van-area :area-list="areaList" @cancel="cancel" @confirm="confirm" :value="code"/>
         </van-popup>
 
         <div class="inputTitle">职称</div>
@@ -52,6 +52,7 @@
             hospital:'',
             department:'',
             city:'',
+            code:'',
             title:'',
             mobile:'',
             email:'',
@@ -72,6 +73,7 @@
         },
         confirm(arr){
           this.city = arr[0].name +','+ arr[1].name+',' + arr[2].name;
+          this.code = arr[2].code;
           this.isShowArea = false;
         },
         submitData(){
@@ -117,6 +119,7 @@
           temp.hospital = encodeURI(vm.hospital);
           temp.department = encodeURI(vm.department);
           temp.city = encodeURI(vm.city);
+          temp.cityCode = vm.code;
           temp.title = encodeURI(vm.title);
           temp.mobile = encodeURI(vm.mobile);
           temp.email = encodeURI(vm.email);
@@ -132,6 +135,7 @@
             vm.hospital = existData.hospital;
             vm.department = existData.department;
             vm.city = existData.city;
+            vm.code = existData.cityCode;
             vm.title = existData.title;
             vm.mobile = existData.mobile;
             vm.email = existData.email;
