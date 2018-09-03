@@ -7,13 +7,13 @@
       </div>
       <div class="projectDiv">
         <div class="inputTitle">请选择您的项目名称：</div>
-        <van-field v-model="projectName" placeholder="请选择项目名称" @focus="showProject" />
+        <van-field v-model="projectName" placeholder="请选择" @focus="showProject" />
         <van-popup v-model="isShow" position="bottom" :overlay="true">
           <van-picker :columns="columns" show-toolbar title="项目名称" @cancel="onCancel" @confirm="onConfirm"/>
         </van-popup>
       </div>
       <div class="bottomDiv">
-        <van-button type="primary" size="large">下一步</van-button>
+        <van-button type="primary" size="large" @click="nextStep">下一步</van-button>
       </div>
     </div>
   </div>
@@ -38,7 +38,24 @@
           this.isShow = false;
         },
         onConfirm(selected){
-        console.info(selected)
+          let vm = this;
+          vm.projectName = selected;
+          vm.isShow = false;
+        },
+        nextStep(){
+          let vm = this;
+          if(vm.validator()){
+            vm.$router.push({name:'registerTwo'});
+          }
+        },
+        validator(){
+          let vm = this;
+          if(!vm.projectName){
+            vm.$toast.fail('未选择项目名称');
+            return false;
+          }else{
+            return true;
+          }
         }
       }
     }
