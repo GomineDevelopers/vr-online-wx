@@ -63,7 +63,7 @@
 
 <style scoped>
   .registeroneContent{
-    margin-top: 18vh;
+    margin-top: 20vh;
   }
 
   .logoDiv{
