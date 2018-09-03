@@ -59,6 +59,9 @@
             isShowArea:false
           }
       },
+      mounted(){
+        this.getExistData();
+      },
       methods:{
         showArea(){
           let vm = this;
@@ -74,7 +77,7 @@
         submitData(){
           let vm = this;
           if(vm.validator()){
-
+            vm.setCookies();
           }
         },
         validator(){
@@ -101,6 +104,37 @@
             return false;
           } else {
             return true;
+          }
+        },
+        setCookies(){
+          let vm = this;
+          let temp = {};
+          if(vm.$commonTools.getCookie("cookieData")){
+            temp = JSON.parse(vm.$commonTools.getCookie("cookieData"));
+          }
+          temp.userName = encodeURI(vm.userName);
+          temp.sex = encodeURI(vm.sex);
+          temp.hospital = encodeURI(vm.hospital);
+          temp.department = encodeURI(vm.department);
+          temp.city = encodeURI(vm.city);
+          temp.title = encodeURI(vm.title);
+          temp.mobile = encodeURI(vm.mobile);
+          temp.email = encodeURI(vm.email);
+
+          vm.$commonTools.setCookie("cookieData",JSON.stringify(temp),1);
+        },
+        getExistData(){
+          let vm = this;
+          if(vm.$commonTools.getCookie("cookieData")){
+            let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
+            vm.userName = existData.userName;
+            vm.sex = existData.sex ? existData.sex:'1';
+            vm.hospital = existData.hospital;
+            vm.department = existData.department;
+            vm.city = existData.city;
+            vm.title = existData.title;
+            vm.mobile = existData.mobile;
+            vm.email = existData.email;
           }
         }
       }

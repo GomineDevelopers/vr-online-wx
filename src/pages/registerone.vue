@@ -29,6 +29,9 @@
           projectName:''
         };
       },
+      mounted(){
+        this.getExistData();
+      },
       methods:{
         showProject(){
           let vm = this;
@@ -45,6 +48,7 @@
         nextStep(){
           let vm = this;
           if(vm.validator()){
+            vm.setCookies();
             vm.$router.push({name:'registerTwo'});
           }
         },
@@ -55,6 +59,23 @@
             return false;
           }else{
             return true;
+          }
+        },
+        setCookies(){
+          let vm = this;
+          let temp = {};
+          if(vm.$commonTools.getCookie("cookieData")){
+            temp = JSON.parse(vm.$commonTools.getCookie("cookieData"));
+          }
+          temp.projectName = encodeURI(vm.projectName);
+
+          vm.$commonTools.setCookie("cookieData",JSON.stringify(temp),1);
+        },
+        getExistData(){
+          let vm = this;
+          if(vm.$commonTools.getCookie("cookieData")){
+            let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
+            vm.projectName = existData.projectName;
           }
         }
       }
