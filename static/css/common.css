@@ -17,7 +17,7 @@
 
 /*框架中的样式*/
 .van-cell {
-  line-height: 20px;
+  line-height: 15px;
   border: 1px solid #d6d6d6;
   border-radius: 5px;
   margin-bottom: 2vh;
@@ -30,4 +30,12 @@
 .van-button--large {
   height: 45px;
   line-height: 44px;
+}
+
+.van-uploader{
+  border: 1px solid #dadada;
+  width: 100%;
+  border-radius: 5px;
+  min-height: 70px;
+  text-align: center;
 }

@@ -7,12 +7,10 @@
         <van-field v-model="userName"/>
 
         <div class="inputTitle"><span class="necessary">*</span>性别</div>
-        <van-radio-group v-model="sex" class="radioDiv">
-          <van-row>
-            <van-col span="12"><van-radio name="1">男</van-radio></van-col>
-            <van-col span="12"><van-radio name="2">女</van-radio></van-col>
-          </van-row>
-        </van-radio-group>
+        <van-field v-model="sex" placeholder="请选择" @focus="showSex" />
+        <van-popup v-model="isShowSex" position="bottom" :overlay="true">
+          <van-picker :columns="columnsex" show-toolbar title="性别" @cancel="onCancelSex" @confirm="onConfirmSex"/>
+        </van-popup>
 
         <div class="inputTitle"><span class="necessary">*</span>所属医院</div>
         <van-field v-model="hospital"/>
@@ -48,7 +46,9 @@
       data(){
           return{
             userName:'',
-            sex:'1',
+            sex:'',
+            isShowSex:false,
+            columnsex:['男','女'],
             hospital:'',
             department:'',
             city:'',
@@ -75,6 +75,18 @@
           this.city = arr[0].name +','+ arr[1].name+',' + arr[2].name;
           this.code = arr[2].code;
           this.isShowArea = false;
+        },
+        showSex(){
+          let vm = this;
+          vm.isShowSex = true;
+        },
+        onCancelSex(){
+          this.isShowSex = false;
+        },
+        onConfirmSex(selected){
+          let vm = this;
+          vm.sex = selected;
+          vm.isShowSex = false;
         },
         submitData(){
           let vm = this;
@@ -170,7 +182,4 @@
     color:#f44;
   }
 
-  .radioDiv{
-    margin-bottom: 2vh;
-  }
 </style>
