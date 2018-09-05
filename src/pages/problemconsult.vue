@@ -56,7 +56,7 @@ export default {
     return {
       consultUserName: "哈哈哈",
       problemContent: ""
-    };
+    }
   }
 };
 </script>
