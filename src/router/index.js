@@ -24,6 +24,38 @@ const routes = [{
     meta: {
       title: '注册页面二'
     }
+  },
+  {
+    name: 'caseReport',
+    component: () =>import('@/pages/casereport'),
+    path: '/caseReport',
+    meta: {
+      title: '病例填报'
+    }
+  },
+  {
+    name: 'problemConsult',
+    component: () =>import('@/pages/problemconsult'),
+    path: '/problemConsult',
+    meta: {
+      title: '问题咨询'
+    }
+  },
+  {
+    name: 'consultList',
+    component: () =>import('@/pages/consultlist'),
+    path: '/consultList',
+    meta: {
+      title: '咨询列表'
+    }
+  },
+  {
+    name: 'consultDetail',
+    component: () =>import('@/pages/consultdetail'),
+    path: '/consultDetail',
+    meta: {
+      title: '咨询列表详情页'
+    }
   }
 ];
 

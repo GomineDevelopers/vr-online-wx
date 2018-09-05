@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import {router} from '@/router';
+import axios from 'axios'
+import qs from 'qs';
 import {commonTools} from '../static/js/common';
 import Vant from 'vant';
 import 'vant/lib/vant-css/index.css';
@@ -11,7 +13,9 @@ import '../static/css/common.css'
 
 Vue.use(Vant);
 Vue.config.productionTip = false;
+Vue.prototype.$http = axios;
 Vue.prototype.$commonTools = commonTools;
+Vue.prototype.$qs = qs;
 
 /* eslint-disable no-new */
 new Vue({
