@@ -1,3 +1,5 @@
+/* 背景图片开始 */
+/*注册页面背景 */
 .registerbg_header {
   background-image: url("../images/registerHeader.png");
   background-size: 100% 100%;
@@ -7,6 +9,18 @@
   width: 100%;
 }
 
+/* 问题咨询头部背景 */
+.probleconsult_header {
+  background-image: url("../images/problemConsult-header.png");
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  height: 10vh;
+  width: 100%;
+  box-shadow: 0px 10px #dde9d5;
+}
+
+/* 背景结束*/
 /*输入框上面的文字样式*/
 .inputTitle {
   font-size: .88rem;
@@ -32,7 +46,7 @@
   line-height: 44px;
 }
 
-.van-uploader{
+.van-uploader {
   border: 1px solid #dadada;
   width: 100%;
   border-radius: 5px;
