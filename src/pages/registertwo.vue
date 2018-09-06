@@ -143,7 +143,7 @@
           if(vm.$commonTools.getCookie("cookieData")){
             let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
             vm.userName = existData.userName;
-            vm.sex = existData.sex ? existData.sex:'1';
+            vm.sex = existData.sex ? existData.sex:'男';
             vm.hospital = existData.hospital;
             vm.department = existData.department;
             vm.city = existData.city;
