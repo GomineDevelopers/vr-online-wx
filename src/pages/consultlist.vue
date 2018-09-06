@@ -4,7 +4,7 @@
          <van-row type="flex" justify="center">
          <van-col span="22">
              <div class="list-wrapper">
-             <div class="list-item">哈哈哈</div>
+             <div class="list-item">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
              <div class="list-time">哈哈哈</div>
              <div class="rotate-tag status-success">
              <div class="c1"></div>
@@ -37,7 +37,7 @@
          <van-col span="22">
              <div class="list-wrapper">
              <div class="list-item">哈哈哈</div>
-             <div class="list-time">哈哈哈</div>
+             <div class="list-time">2018-1-1 12:00</div>
              <div class="rotate-tag status-refuse">
              <div class="c1"></div>
               <div class="c2"></div>
@@ -76,16 +76,19 @@ export default {
   padding: 1.5vh;
   border-radius: 5px;
   background-color: #ffffff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   margin-top: 2vh;
 }
 .list-item {
   padding: 0.8vh 0;
-  text-overflow: ellipsis;
-  /* white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
+  word-wrap: break-word;
   width: 95%;
-  max-height: 13vh;
+  min-height: 3vh;
+  max-height: 5vh;
 }
 .list-time {
   font-size: 0.65rem;
