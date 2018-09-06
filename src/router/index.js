@@ -30,7 +30,8 @@ const routes = [{
     component: () =>import('@/pages/casereport'),
     path: '/caseReport',
     meta: {
-      title: '病例填报'
+      title: '病例填报',
+      requiresAuth:true
     }
   },
   {
@@ -38,7 +39,8 @@ const routes = [{
     component: () =>import('@/pages/problemconsult'),
     path: '/problemConsult',
     meta: {
-      title: '问题咨询'
+      title: '问题咨询',
+      requiresAuth:true
     }
   },
   {
@@ -46,7 +48,8 @@ const routes = [{
     component: () =>import('@/pages/consultlist'),
     path: '/consultList',
     meta: {
-      title: '咨询列表'
+      title: '咨询列表',
+      requiresAuth:true
     }
   },
   {
@@ -54,7 +57,8 @@ const routes = [{
     component: () =>import('@/pages/consultdetail'),
     path: '/consultDetail',
     meta: {
-      title: '咨询列表详情页'
+      title: '咨询列表详情页',
+      requiresAuth:true
     }
   }
 ];
@@ -65,13 +69,6 @@ routes.forEach(route => {
 });
 const router = new Router({
   routes
-});
-router.beforeEach((to, from, next) => {
-  const title = to.meta && to.meta.title;
-  if (title) {
-    document.title = title;
-  }
-  next();
 });
 
 export {

@@ -91,7 +91,38 @@
         submitData(){
           let vm = this;
           if(vm.validator()){
-            vm.setCookies();
+            let postData = {};
+            let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
+            postData.project_name = existData.project_name;
+            postData.realname = vm.userName;
+            postData.gender = vm.sex == '男'?'0':'1';
+            postData.hospital = vm.hospital;
+            postData.department = vm.department;
+            postData.citys = vm.city;
+            postData.job = vm.title;
+            postData.mobile = vm.mobile;
+            postData.email = vm.email;
+            this.$http({
+              method: 'post',
+              url: 'http://192.168.0.5/noob/app/index.php',
+              params:{
+                i: '8',
+                c: 'entry',
+                p: 'user',
+                do: 'shop',
+                m: 'ewei_shop',
+                ac:'update_member'
+              },
+              data:vm.$qs.stringify(postData)
+            })
+              .then(function (response) {
+                if(response.data.status == '200'){
+                  alert("提交成功，跳转到审核页面");
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           }
         },
         validator(){
@@ -126,13 +157,13 @@
           if(vm.$commonTools.getCookie("cookieData")){
             temp = JSON.parse(vm.$commonTools.getCookie("cookieData"));
           }
-          temp.userName = encodeURI(vm.userName);
-          temp.sex = encodeURI(vm.sex);
+          temp.realname = encodeURI(vm.userName);
+          temp.gender = encodeURI(vm.sex);
           temp.hospital = encodeURI(vm.hospital);
           temp.department = encodeURI(vm.department);
-          temp.city = encodeURI(vm.city);
+          temp.citys = encodeURI(vm.city);
           temp.cityCode = vm.code;
-          temp.title = encodeURI(vm.title);
+          temp.job = encodeURI(vm.title);
           temp.mobile = encodeURI(vm.mobile);
           temp.email = encodeURI(vm.email);
 
@@ -142,13 +173,13 @@
           let vm = this;
           if(vm.$commonTools.getCookie("cookieData")){
             let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
-            vm.userName = existData.userName;
-            vm.sex = existData.sex ? existData.sex:'男';
+            vm.userName = existData.realname;
+            vm.sex = existData.gender == '0' ? '男':'女';
             vm.hospital = existData.hospital;
             vm.department = existData.department;
-            vm.city = existData.city;
+            vm.city = existData.citys;
             vm.code = existData.cityCode;
-            vm.title = existData.title;
+            vm.title = existData.job;
             vm.mobile = existData.mobile;
             vm.email = existData.email;
           }

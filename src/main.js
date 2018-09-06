@@ -17,6 +17,48 @@ Vue.prototype.$http = axios;
 Vue.prototype.$commonTools = commonTools;
 Vue.prototype.$qs = qs;
 
+/*router.beforeEach((to, from, next) => {
+  const title = to.meta && to.meta.title;
+  if (title) {
+    console.info(title)
+    document.title = title;
+  }
+  next();
+});*/
+
+router.beforeEach((to, from, next) => {
+  const title = to.meta && to.meta.title;
+  if (title) {
+    document.title = title;
+  }
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    axios.get('http://192.168.0.5/noob/app/index.php',{
+      params: {
+        i:"8",
+        c:"entry",
+        p:"user",
+        do:"shop",
+        m:"ewei_shop",
+        ac:"get_info"
+      }
+    })
+      .then(function (response) {
+        if(response.data && response.data.result && response.data.result.is_registered == '0'){
+          next({name:'registerOne'});
+        }else if(response.data && response.data.result && response.data.result.is_registered == '1'){
+          alert("待审核提示页面");
+        }else if(response.data && response.data.result && response.data.result.is_registered == '2'){
+          next();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } else {
+    next() // make sure to always call next()!
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

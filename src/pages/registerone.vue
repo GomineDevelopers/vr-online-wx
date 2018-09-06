@@ -26,7 +26,7 @@
         return {
           columns: ['银杏'],
           isShow:false,
-          projectName:''
+          projectName:'银杏'
         };
       },
       mounted(){
@@ -67,7 +67,7 @@
           if(vm.$commonTools.getCookie("cookieData")){
             temp = JSON.parse(vm.$commonTools.getCookie("cookieData"));
           }
-          temp.projectName = encodeURI(vm.projectName);
+          temp.project_name = encodeURI(vm.projectName);
 
           vm.$commonTools.setCookie("cookieData",JSON.stringify(temp),1);
         },
@@ -75,7 +75,7 @@
           let vm = this;
           if(vm.$commonTools.getCookie("cookieData")){
             let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
-            vm.projectName = existData.projectName;
+            vm.projectName = existData.project_name;
           }
         }
       }

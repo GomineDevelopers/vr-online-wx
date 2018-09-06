@@ -1,55 +1,19 @@
 <template>
  <div class="consut-list">
-     
-         <van-row type="flex" justify="center">
-         <van-col span="22">
-             <div class="list-wrapper">
-             <div class="list-item">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
-             <div class="list-time">哈哈哈</div>
-             <div class="rotate-tag status-success">
-             <div class="c1"></div>
-              <div class="c2"></div>
-              <div class="c3" v-if="status == 1">未处理</div>
-              <div class="c3" v-if="status == 3">通过</div>
-              <div class="c3" v-if="status == 4">未通过</div>
-              </div>
-             </div>
-             
-         </van-col>
-         </van-row>
-         <van-row type="flex" justify="center">
-         <van-col span="22">
-             <div class="list-wrapper">
-             <div class="list-item">哈哈哈</div>
-             <div class="list-time">哈哈哈</div>
-             <div class="rotate-tag status-wait">
-             <div class="c1"></div>
-              <div class="c2"></div>
-              <div class="c3" v-if="status == 1">未处理</div>
-              <div class="c3" v-if="status == 3">通过</div>
-              <div class="c3" v-if="status == 4">未通过</div>
-              </div>
-             </div>
-             
-         </van-col>
-         </van-row>
-         <van-row type="flex" justify="center">
-         <van-col span="22">
-             <div class="list-wrapper">
-             <div class="list-item">哈哈哈</div>
-             <div class="list-time">2018-1-1 12:00</div>
-             <div class="rotate-tag status-refuse">
-             <div class="c1"></div>
-              <div class="c2"></div>
-              <div class="c3" v-if="status == 1">未处理</div>
-              <div class="c3" v-if="status == 3">通过</div>
-              <div class="c3" v-if="status == 4">未通过</div>
-              </div>
-             </div>
-             
-         </van-col>
-         </van-row>
-    
+     <van-row type="flex" justify="center">
+     <van-col span="22">
+       <div class="list-wrapper" v-for="item in listData">
+         <div class="list-item" v-text="item.problem"></div>
+         <div class="list-time" v-text="$commonTools.formatDate(item.create_time)"></div>
+         <div class="rotate-tag" :class="[item.status == 0 ? 'status-wait':'status-success']">
+          <div class="c1"></div>
+          <div class="c2"></div>
+          <div class="c3" v-if="item.status == 0">未回复</div>
+          <div class="c3" v-if="item.status == 1">已回复</div>
+        </div>
+       </div>
+     </van-col>
+     </van-row>
  </div>
 </template>
 
@@ -58,9 +22,37 @@ export default {
   name: "consultlist",
   data() {
     return {
-      status: "3"
+      listData:[],
     };
-  }
+  },
+  mounted(){
+    this.getListData();
+  },
+  methods:{
+    getListData(){
+      let vm = this;
+      this.$http({
+        method: 'get',
+        url: 'http://192.168.0.5/noob/app/index.php',
+        params:{
+          i: '8',
+          c: 'entry',
+          p: 'advisory',
+          do: 'shop',
+          m: 'ewei_shop',
+          ac:'list_advisory'
+        },
+      })
+        .then(function (response) {
+          if(response.data.status == '200'){
+            vm.listData = response.data.result;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  },
 };
 </script>
 
@@ -86,7 +78,7 @@ export default {
   -webkit-line-clamp: 2;
   overflow: hidden;
   word-wrap: break-word;
-  width: 95%;
+  width: 94%;
   min-height: 3vh;
   max-height: 5vh;
 }
@@ -137,7 +129,4 @@ export default {
   border-top: 7.5vh solid #d26e7a;
 }
 
-.status-refuse .c1 {
-  border-top: 7.5vh solid #e6a23c;
-}
 </style>

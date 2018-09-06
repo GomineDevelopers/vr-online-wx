@@ -12,14 +12,14 @@
         <van-col span="20">
             <van-row type="flex">
                 <van-col span="12"> <div class="sub-title">问题咨询</div> </van-col>
-                <van-col span="12"><van-button class="consult-record" type="primary" plain>咨询记录</van-button></van-col>
+                <van-col span="12"><van-button class="consult-record" type="primary" plain @click="goList">咨询记录</van-button></van-col>
             </van-row>
         </van-col>
         </van-row>
         <van-row type="flex" justify="center" class="row-wrapper">
         <van-col span="20">
             <van-row type="flex">
-                <van-col span="24"> <div class="sub-comment">请填写您的问题并提交:</div> </van-col>
+                <van-col span="24"> <div class="sub-comment">请填写您的问题并提交</div> </van-col>
             </van-row>
         </van-col>
 
@@ -41,7 +41,7 @@
       <van-row type="flex" justify="center" class="row-wrapper bottom-button">
          <van-col span="20">
             <div class="bottomDiv">
-              <van-button type="primary" size="large">提交</van-button>
+              <van-button type="primary" size="large" @click="submitData">提&nbsp;交</van-button>
             </div>
         </van-col>
       </van-row>
@@ -54,8 +54,74 @@ export default {
   name: "problemconsult",
   data() {
     return {
-      consultUserName: "哈哈哈",
+      consultUserName: "",
       problemContent: ""
+    }
+  },
+  mounted(){
+    this.getRealName();
+  },
+  methods:{
+    getRealName(){
+      let vm = this;
+      this.$http.get('http://192.168.0.5/noob/app/index.php',{
+        params: {
+          i:"8",
+          c:"entry",
+          p:"user",
+          do:"shop",
+          m:"ewei_shop",
+          ac:"get_info"
+        }
+      })
+        .then(function (response) {
+          if(response.data.status == '200'){
+            vm.consultUserName = response.data.result.realname;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    submitData(){
+      let vm = this;
+      if(vm.validator()){
+        let postData = {};
+        postData.problem = vm.problemContent;
+        this.$http({
+          method: 'post',
+          url: 'http://192.168.0.5/noob/app/index.php',
+          params:{
+            i: '8',
+            c: 'entry',
+            p: 'advisory',
+            do: 'shop',
+            m: 'ewei_shop',
+            ac:'add_advisory'
+          },
+          data:vm.$qs.stringify(postData)
+        })
+          .then(function (response) {
+            if(response.data.status == '200'){
+              vm.$router.replace({name:'consultList'});
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+    validator(){
+      let vm = this;
+      if(!vm.problemContent){
+        vm.$toast.fail('未填写问题内容');
+        return false;
+      }else{
+        return true;
+      }
+    },
+    goList(){
+      this.$router.replace({name:'consultList'});
     }
   }
 };
