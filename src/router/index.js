@@ -10,6 +10,22 @@ const routes = [{
     }
   },
   {
+    name: 'noMember',
+    component: () =>import('@/pages/nomember'),
+    path: '/nomember',
+    meta: {
+      title: '注册提示页'
+    }
+  },
+  {
+    name: 'noMemberStatus',
+    component: () =>import('@/pages/nomemberstatus'),
+    path: '/nomemberstatus',
+    meta: {
+      title: '等待审核页'
+    }
+  },
+  {
     name: 'registerOne',
     component: () =>import('@/pages/registerone'),
     path: '/registerone',

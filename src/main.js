@@ -17,14 +17,6 @@ Vue.prototype.$http = axios;
 Vue.prototype.$commonTools = commonTools;
 Vue.prototype.$qs = qs;
 
-/*router.beforeEach((to, from, next) => {
-  const title = to.meta && to.meta.title;
-  if (title) {
-    console.info(title)
-    document.title = title;
-  }
-  next();
-});*/
 
 router.beforeEach((to, from, next) => {
   const title = to.meta && to.meta.title;
@@ -44,9 +36,9 @@ router.beforeEach((to, from, next) => {
     })
       .then(function (response) {
         if(response.data && response.data.result && response.data.result.is_registered == '0'){
-          next({name:'registerOne'});
+          next({name:'noMember'});
         }else if(response.data && response.data.result && response.data.result.is_registered == '1'){
-          alert("待审核提示页面");
+          next({name:'noMemberStatus'});
         }else if(response.data && response.data.result && response.data.result.is_registered == '2'){
           next();
         }
