@@ -78,8 +78,6 @@ export default {
 .problem {
   text-align: left;
   background: #ffffff;
-  -webkit-box-shadow: 0px 0px 20px 5px #e9e9e9;
-  box-shadow: 0px 0px 20px 5px #e9e9e9;
   position: relative;
   border-radius: 5px;
   margin: 2vh;

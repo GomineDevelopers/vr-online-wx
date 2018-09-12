@@ -23,6 +23,7 @@ router.beforeEach((to, from, next) => {
   if (title) {
     document.title = title;
   }
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     axios.get('http://192.168.0.5/noob/app/index.php',{
       params: {
@@ -35,9 +36,9 @@ router.beforeEach((to, from, next) => {
       }
     })
       .then(function (response) {
-        if(response.data && response.data.result && response.data.result.is_registered == '0'){
+        if(response.data && response.data.result && response.data.result.is_registered == '0' && to.name != 'noMember'){
           next({name:'noMember'});
-        }else if(response.data && response.data.result && response.data.result.is_registered == '1'){
+        }else if(response.data && response.data.result && response.data.result.is_registered == '1' && to.name != 'noMemberStatus'){
           next({name:'noMemberStatus'});
         }else if(response.data && response.data.result && response.data.result.is_registered == '2'){
           next();
