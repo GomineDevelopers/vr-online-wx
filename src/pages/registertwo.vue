@@ -40,177 +40,180 @@
 </template>
 
 <script>
-  import areaList from '../../static/js/area.js'
-    export default {
-        name: "registertwo",
-      data(){
-          return{
-            userName:'',
-            sex:'',
-            isShowSex:false,
-            columnsex:['男','女'],
-            hospital:'',
-            department:'',
-            city:'',
-            code:'',
-            title:'',
-            mobile:'',
-            email:'',
-            areaList:areaList,
-            isShowArea:false
-          }
-      },
-      mounted(){
-        this.getExistData();
-      },
-      methods:{
-        showArea(){
-          let vm = this;
-          vm.isShowArea = true;
-        },
-        cancel(){
-          this.isShowArea = false;
-        },
-        confirm(arr){
-          this.city = arr[0].name +','+ arr[1].name+',' + arr[2].name;
-          this.code = arr[2].code;
-          this.isShowArea = false;
-        },
-        showSex(){
-          let vm = this;
-          vm.isShowSex = true;
-        },
-        onCancelSex(){
-          this.isShowSex = false;
-        },
-        onConfirmSex(selected){
-          let vm = this;
-          vm.sex = selected;
-          vm.isShowSex = false;
-        },
-        submitData(){
-          let vm = this;
-          if(vm.validator()){
-            let postData = {};
-            let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
-            postData.project_name = existData.project_name;
-            postData.realname = vm.userName;
-            postData.gender = vm.sex == '男'?'0':'1';
-            postData.hospital = vm.hospital;
-            postData.department = vm.department;
-            postData.citys = vm.city;
-            postData.job = vm.title;
-            postData.mobile = vm.mobile;
-            postData.email = vm.email;
-            this.$http({
-              method: 'post',
-              url: 'http://192.168.0.5/noob/app/index.php',
-              params:{
-                i: '8',
-                c: 'entry',
-                p: 'user',
-                do: 'shop',
-                m: 'ewei_shop',
-                ac:'update_member'
-              },
-              data:vm.$qs.stringify(postData)
-            })
-              .then(function (response) {
-                if(response.data.status == '200'){
-                  alert("提交成功，跳转到审核页面");
-                }
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-          }
-        },
-        validator(){
-          let vm = this;
-          let msg = "";
-          let regP = /^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/;
-          let regE = /\w@\w*\.\w/;
-          if(!vm.userName){
-            msg = "未填写姓名";
-          }else if(!vm.hospital){
-            msg = "未填写所属医院";
-          }else if(!vm.department){
-            msg = "未填写科室";
-          }else if(!vm.city){
-            msg = "未选择所在城市";
-          }else if(vm.mobile && !regP.test(vm.mobile)){
-            msg = "手机号格式不正确";
-          }else if(vm.email && !regE.test(vm.email)){
-            msg = "邮箱格式不正确";
-          }
+import areaList from "../../static/js/area.js";
+export default {
+  name: "registertwo",
+  data() {
+    return {
+      userName: "",
+      sex: "",
+      isShowSex: false,
+      columnsex: ["男", "女"],
+      hospital: "",
+      department: "",
+      city: "",
+      code: "",
+      title: "",
+      mobile: "",
+      email: "",
+      areaList: areaList,
+      isShowArea: false
+    };
+  },
+  mounted() {
+    this.getExistData();
+  },
+  methods: {
+    showArea() {
+      let vm = this;
+      vm.isShowArea = true;
+    },
+    cancel() {
+      this.isShowArea = false;
+    },
+    confirm(arr) {
+      this.city = arr[0].name + "," + arr[1].name + "," + arr[2].name;
+      this.code = arr[2].code;
+      this.isShowArea = false;
+    },
+    showSex() {
+      let vm = this;
+      vm.isShowSex = true;
+    },
+    onCancelSex() {
+      this.isShowSex = false;
+    },
+    onConfirmSex(selected) {
+      let vm = this;
+      vm.sex = selected;
+      vm.isShowSex = false;
+    },
+    submitData() {
+      let vm = this;
+      if (vm.validator()) {
+        let postData = {};
+        let existData = JSON.parse(
+          decodeURI(vm.$commonTools.getCookie("cookieData"))
+        );
+        postData.project_name = existData.project_name;
+        postData.realname = vm.userName;
+        postData.gender = vm.sex == "男" ? "0" : "1";
+        postData.hospital = vm.hospital;
+        postData.department = vm.department;
+        postData.citys = vm.city;
+        postData.job = vm.title;
+        postData.mobile = vm.mobile;
+        postData.email = vm.email;
+        this.$http({
+          method: "post",
+          url: vm.$commonTools.g_restUrl,
+          params: {
+            i: "8",
+            c: "entry",
+            p: "user",
+            do: "shop",
+            m: "ewei_shop",
+            ac: "update_member"
+          },
+          data: vm.$qs.stringify(postData)
+        })
+          .then(function(response) {
+            if (response.data.status == "200") {
+              alert("提交成功，跳转到审核页面");
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+    validator() {
+      let vm = this;
+      let msg = "";
+      let regP = /^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/;
+      let regE = /\w@\w*\.\w/;
+      if (!vm.userName) {
+        msg = "未填写姓名";
+      } else if (!vm.hospital) {
+        msg = "未填写所属医院";
+      } else if (!vm.department) {
+        msg = "未填写科室";
+      } else if (!vm.city) {
+        msg = "未选择所在城市";
+      } else if (vm.mobile && !regP.test(vm.mobile)) {
+        msg = "手机号格式不正确";
+      } else if (vm.email && !regE.test(vm.email)) {
+        msg = "邮箱格式不正确";
+      }
 
-          if (msg) {
-            vm.$toast.fail(msg);
-            return false;
-          } else {
-            return true;
-          }
-        },
-        setCookies(){
-          let vm = this;
-          let temp = {};
-          if(vm.$commonTools.getCookie("cookieData")){
-            temp = JSON.parse(vm.$commonTools.getCookie("cookieData"));
-          }
-          temp.realname = encodeURI(vm.userName);
-          temp.gender = encodeURI(vm.sex);
-          temp.hospital = encodeURI(vm.hospital);
-          temp.department = encodeURI(vm.department);
-          temp.citys = encodeURI(vm.city);
-          temp.cityCode = vm.code;
-          temp.job = encodeURI(vm.title);
-          temp.mobile = encodeURI(vm.mobile);
-          temp.email = encodeURI(vm.email);
+      if (msg) {
+        vm.$toast.fail(msg);
+        return false;
+      } else {
+        return true;
+      }
+    },
+    setCookies() {
+      let vm = this;
+      let temp = {};
+      if (vm.$commonTools.getCookie("cookieData")) {
+        temp = JSON.parse(vm.$commonTools.getCookie("cookieData"));
+      }
+      temp.realname = encodeURI(vm.userName);
+      temp.gender = encodeURI(vm.sex);
+      temp.hospital = encodeURI(vm.hospital);
+      temp.department = encodeURI(vm.department);
+      temp.citys = encodeURI(vm.city);
+      temp.cityCode = vm.code;
+      temp.job = encodeURI(vm.title);
+      temp.mobile = encodeURI(vm.mobile);
+      temp.email = encodeURI(vm.email);
 
-          vm.$commonTools.setCookie("cookieData",JSON.stringify(temp),1);
-        },
-        getExistData(){
-          let vm = this;
-          if(vm.$commonTools.getCookie("cookieData")){
-            let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
-            vm.userName = existData.realname;
-            vm.sex = existData.gender == '0' ? '男':'女';
-            vm.hospital = existData.hospital;
-            vm.department = existData.department;
-            vm.city = existData.citys;
-            vm.code = existData.cityCode;
-            vm.title = existData.job;
-            vm.mobile = existData.mobile;
-            vm.email = existData.email;
-          }
-        }
+      vm.$commonTools.setCookie("cookieData", JSON.stringify(temp), 1);
+    },
+    getExistData() {
+      let vm = this;
+      if (vm.$commonTools.getCookie("cookieData")) {
+        let existData = JSON.parse(
+          decodeURI(vm.$commonTools.getCookie("cookieData"))
+        );
+        vm.userName = existData.realname;
+        vm.sex = existData.gender == "0" ? "男" : "女";
+        vm.hospital = existData.hospital;
+        vm.department = existData.department;
+        vm.city = existData.citys;
+        vm.code = existData.cityCode;
+        vm.title = existData.job;
+        vm.mobile = existData.mobile;
+        vm.email = existData.email;
       }
     }
+  }
+};
 </script>
 
 <style scoped>
-  .registerbgCol{
-    background-color: #eff1f5;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
+.registerbgCol {
+  background-color: #eff1f5;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 
-  .registertwobg{
-    background-color: #ffffff;
-    margin: 2vh;
-    border-radius: 5px;
-  }
+.registertwobg {
+  background-color: #ffffff;
+  margin: 2vh;
+  border-radius: 5px;
+}
 
-  .registertwoContent{
-    padding: 3vh 5vh;
-    max-height: 90vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+.registertwoContent {
+  padding: 3vh 5vh;
+  max-height: 90vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-  .necessary{
-    color:#f44;
-  }
-
+.necessary {
+  color: #f44;
+}
 </style>

@@ -30,36 +30,36 @@
 <script>
 export default {
   name: "consultdetail",
-  data(){
+  data() {
     return {
-      detailData:''
-    }
+      detailData: ""
+    };
   },
-  mounted(){
+  mounted() {
     this.getDetailData();
   },
-  methods:{
-    getDetailData(){
+  methods: {
+    getDetailData() {
       let vm = this;
       this.$http({
-        method: 'get',
-        url: 'http://192.168.0.5/noob/app/index.php',
-        params:{
-          i: '8',
-          c: 'entry',
-          p: 'advisory',
-          do: 'shop',
-          m: 'ewei_shop',
-          ac:'detail_advisory',
-          id:'1'
-        },
+        method: "get",
+        url: vm.$commonTools.g_restUrl,
+        params: {
+          i: "8",
+          c: "entry",
+          p: "advisory",
+          do: "shop",
+          m: "ewei_shop",
+          ac: "detail_advisory",
+          id: "1"
+        }
       })
-        .then(function (response) {
-          if(response.data.status == '200'){
+        .then(function(response) {
+          if (response.data.status == "200") {
             vm.detailData = response.data.result;
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
@@ -146,7 +146,7 @@ export default {
   width: 32px;
 }
 
-.wordBreak{
+.wordBreak {
   word-break: break-all;
 }
 

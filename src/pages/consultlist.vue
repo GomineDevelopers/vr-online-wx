@@ -22,37 +22,37 @@ export default {
   name: "consultlist",
   data() {
     return {
-      listData:[],
+      listData: []
     };
   },
-  mounted(){
+  mounted() {
     this.getListData();
   },
-  methods:{
-    getListData(){
+  methods: {
+    getListData() {
       let vm = this;
       this.$http({
-        method: 'get',
-        url: 'http://192.168.0.5/noob/app/index.php',
-        params:{
-          i: '8',
-          c: 'entry',
-          p: 'advisory',
-          do: 'shop',
-          m: 'ewei_shop',
-          ac:'list_advisory'
-        },
+        method: "get",
+        url: vm.$commonTools.g_restUrl,
+        params: {
+          i: "8",
+          c: "entry",
+          p: "advisory",
+          do: "shop",
+          m: "ewei_shop",
+          ac: "list_advisory"
+        }
       })
-        .then(function (response) {
-          if(response.data.status == '200'){
+        .then(function(response) {
+          if (response.data.status == "200") {
             vm.listData = response.data.result;
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
-  },
+  }
 };
 </script>
 
@@ -128,5 +128,4 @@ export default {
 .status-wait .c1 {
   border-top: 7.5vh solid #d26e7a;
 }
-
 </style>

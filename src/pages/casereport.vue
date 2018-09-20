@@ -34,99 +34,98 @@
 </template>
 
 <script>
-    export default {
-        name: "casereport",
-      data(){
-          return{
-            age:'',
-            sex:'',
-            isShowSex:false,
-            columnsex:['男','女'],
-            columns:['病人组'],
-            isShow:false,
-            patientGroup:'',
-            condition:'',
-            diagnosis:'',
-            treatmentPlan:'',
-            imgUrl:''
-
-          }
-      },
-      methods:{
-        showProject(){
-          let vm = this;
-          vm.isShow = true;
-        },
-        onCancel(){
-          this.isShow = false;
-        },
-        onConfirm(selected){
-          let vm = this;
-          vm.patientGroup = selected;
-          vm.isShow = false;
-        },
-        showSex(){
-          let vm = this;
-          vm.isShowSex = true;
-        },
-        onCancelSex(){
-          this.isShowSex = false;
-        },
-        onConfirmSex(selected){
-          let vm = this;
-          vm.sex = selected;
-          vm.isShowSex = false;
-        },
-        onRead(imgCon) {
-          let vm = this;
-          let postData = {};
-          postData.img = imgCon.content;
-          this.$http({
-            method: 'post',
-            url: 'http://192.168.0.132/abc.php',
-            data: vm.$qs.stringify(postData)
-          })
-            .then(function (response) {
-              vm.imgUrl = response.data.path;
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        }
-      }
+export default {
+  name: "casereport",
+  data() {
+    return {
+      age: "",
+      sex: "",
+      isShowSex: false,
+      columnsex: ["男", "女"],
+      columns: ["病人组"],
+      isShow: false,
+      patientGroup: "",
+      condition: "",
+      diagnosis: "",
+      treatmentPlan: "",
+      imgUrl: ""
+    };
+  },
+  methods: {
+    showProject() {
+      let vm = this;
+      vm.isShow = true;
+    },
+    onCancel() {
+      this.isShow = false;
+    },
+    onConfirm(selected) {
+      let vm = this;
+      vm.patientGroup = selected;
+      vm.isShow = false;
+    },
+    showSex() {
+      let vm = this;
+      vm.isShowSex = true;
+    },
+    onCancelSex() {
+      this.isShowSex = false;
+    },
+    onConfirmSex(selected) {
+      let vm = this;
+      vm.sex = selected;
+      vm.isShowSex = false;
+    },
+    onRead(imgCon) {
+      let vm = this;
+      let postData = {};
+      postData.img = imgCon.content;
+      this.$http({
+        method: "post",
+        url: vm.$commonTools.g_restUrl,
+        data: vm.$qs.stringify(postData)
+      })
+        .then(function(response) {
+          vm.imgUrl = response.data.path;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
+  }
+};
 </script>
 
 <style scoped>
-  .bgCol{
-    background-color: #eff1f5;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
+.bgCol {
+  background-color: #eff1f5;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 
-  .caseReportBg{
-    background-color: #ffffff;
-    margin: 2vh;
-    border-radius: 5px;
-  }
+.caseReportBg {
+  background-color: #ffffff;
+  margin: 2vh;
+  border-radius: 5px;
+}
 
-  .caseReportContent{
-    padding: 3vh 5vh;
-    max-height: 90vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+.caseReportContent {
+  padding: 3vh 5vh;
+  max-height: 90vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-  .necessary{
-    color:#f44;
-  }
+.necessary {
+  color: #f44;
+}
 
-  .bottomDiv{
-    margin:5vh 0;
-  }
+.bottomDiv {
+  margin: 5vh 0;
+}
 
-  .avatar{
-    width:50%;
-  }
+.avatar {
+  width: 50%;
+}
 </style>

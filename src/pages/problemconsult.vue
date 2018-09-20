@@ -56,72 +56,73 @@ export default {
     return {
       consultUserName: "",
       problemContent: ""
-    }
+    };
   },
-  mounted(){
+  mounted() {
     this.getRealName();
   },
-  methods:{
-    getRealName(){
+  methods: {
+    getRealName() {
       let vm = this;
-      this.$http.get('http://192.168.0.5/noob/app/index.php',{
-        params: {
-          i:"8",
-          c:"entry",
-          p:"user",
-          do:"shop",
-          m:"ewei_shop",
-          ac:"get_info"
-        }
-      })
-        .then(function (response) {
-          if(response.data.status == '200'){
+      this.$http
+        .get(vm.$commonTools.g_restUrl, {
+          params: {
+            i: "8",
+            c: "entry",
+            p: "user",
+            do: "shop",
+            m: "ewei_shop",
+            ac: "get_info"
+          }
+        })
+        .then(function(response) {
+          if (response.data.status == "200") {
             vm.consultUserName = response.data.result.realname;
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     },
-    submitData(){
+    submitData() {
       let vm = this;
-      if(vm.validator()){
+      if (vm.validator()) {
         let postData = {};
         postData.problem = vm.problemContent;
         this.$http({
-          method: 'post',
-          url: 'http://192.168.0.5/noob/app/index.php',
-          params:{
-            i: '8',
-            c: 'entry',
-            p: 'advisory',
-            do: 'shop',
-            m: 'ewei_shop',
-            ac:'add_advisory'
+          method: "post",
+          url: "http://192.168.0.5/noob/app/index.php",
+          params: {
+            i: "8",
+            c: "entry",
+            p: "advisory",
+            do: "shop",
+            m: "ewei_shop",
+            ac: "add_advisory"
           },
-          data:vm.$qs.stringify(postData)
+          data: vm.$qs.stringify(postData)
         })
-          .then(function (response) {
-            if(response.data.status == '200'){
-              vm.$router.replace({name:'consultList'});
+          .then(function(response) {
+            if (response.data.status == "200") {
+              vm.$router.replace({ name: "consultList" });
             }
           })
-          .catch(function (error) {
+          .catch(function(error) {
             console.log(error);
           });
       }
     },
-    validator(){
+    validator() {
       let vm = this;
-      if(!vm.problemContent){
-        vm.$toast.fail('未填写问题内容');
+      if (!vm.problemContent) {
+        vm.$toast.fail("未填写问题内容");
         return false;
-      }else{
+      } else {
         return true;
       }
     },
-    goList(){
-      this.$router.replace({name:'consultList'});
+    goList() {
+      this.$router.replace({ name: "consultList" });
     }
   }
 };
