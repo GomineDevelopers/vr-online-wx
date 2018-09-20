@@ -30,7 +30,7 @@ const routes = [{
     component: () =>import('@/pages/registerone'),
     path: '/registerone',
     meta: {
-      title: '注册页面一'
+      title: '注册页面'
     }
   },
   {
@@ -38,7 +38,7 @@ const routes = [{
     component: () =>import('@/pages/registertwo'),
     path: '/registertwo',
     meta: {
-      title: '注册页面二'
+      title: '注册页面'
     }
   },
   {
