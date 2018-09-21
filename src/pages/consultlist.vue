@@ -85,6 +85,7 @@ export default {
   word-wrap: break-word;
   width: 94%;
   min-height: 3vh;
+  line-height: 4vh;
   max-height: 6.5vh;
 }
 .list-time {
