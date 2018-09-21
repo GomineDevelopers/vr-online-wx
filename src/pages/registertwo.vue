@@ -7,7 +7,7 @@
         <van-field v-model="userName"/>
 
         <div class="inputTitle"><span class="necessary">*</span>性别</div>
-        <van-field v-model="sex" placeholder="请选择" @focus="showSex" />
+        <van-field v-model="sex" placeholder="请选择" @focus="showSex" readonly/>
         <van-popup v-model="isShowSex" position="bottom" :overlay="true">
           <van-picker :columns="columnsex" show-toolbar title="性别" @cancel="onCancelSex" @confirm="onConfirmSex"/>
         </van-popup>

@@ -55,7 +55,8 @@ export default {
   data() {
     return {
       consultUserName: "",
-      problemContent: ""
+      problemContent: "",
+      isAdvisory:""
     };
   },
   mounted() {
@@ -64,8 +65,7 @@ export default {
   methods: {
     getRealName() {
       let vm = this;
-      this.$http
-        .get(vm.$commonTools.g_restUrl, {
+      this.$http.get(vm.$commonTools.g_restUrl, {
           params: {
             i: "10",
             c: "entry",
@@ -78,6 +78,7 @@ export default {
         .then(function(response) {
           if (response.data.status == "200") {
             vm.consultUserName = response.data.result.realname;
+            vm.isAdvisory = response.data.result.is_advisory;
           }
         })
         .catch(function(error) {
@@ -91,9 +92,9 @@ export default {
         postData.problem = vm.problemContent;
         this.$http({
           method: "post",
-          url: "http://192.168.0.5/noob/app/index.php",
+          url: vm.$commonTools.g_restUrl,
           params: {
-            i: "8",
+            i: "10",
             c: "entry",
             p: "advisory",
             do: "shop",
@@ -122,7 +123,12 @@ export default {
       }
     },
     goList() {
-      this.$router.replace({ name: "consultList" });
+      let vm = this;
+      if(vm.isAdvisory == 0){
+        vm.$toast('您还未有病例咨询记录！');
+      }else if(vm.isAdvisory == 1){
+        vm.$router.replace({ name: "consultList" });
+      }
     }
   }
 };

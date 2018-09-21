@@ -25,9 +25,9 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    axios.get('http://192.168.0.5/noob/app/index.php',{
+    axios.get('http://icampaign.com.cn/customers/noob/app/index.php',{
       params: {
-        i:"8",
+        i:"10",
         c:"entry",
         p:"user",
         do:"shop",

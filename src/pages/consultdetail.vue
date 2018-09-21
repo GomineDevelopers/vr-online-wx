@@ -51,7 +51,7 @@ export default {
           do: "shop",
           m: "ewei_shop",
           ac: "detail_advisory",
-          id: "1"
+          id: vm.$route.params.id
         }
       })
         .then(function(response) {

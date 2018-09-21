@@ -1,19 +1,21 @@
 <template>
  <div class="consut-list">
+   <div v-for="item in listData" @click="goDetail(item.id)">
      <van-row type="flex" justify="center">
-     <van-col span="22">
-       <div class="list-wrapper" v-for="item in listData">
-         <div class="list-item" v-text="item.problem"></div>
-         <div class="list-time" v-text="$commonTools.formatDate(item.create_time)"></div>
-         <div class="rotate-tag" :class="[item.status == 0 ? 'status-wait':'status-success']">
-          <div class="c1"></div>
-          <div class="c2"></div>
-          <div class="c3" v-if="item.status == 0">未回复</div>
-          <div class="c3" v-if="item.status == 1">已回复</div>
-        </div>
-       </div>
-     </van-col>
+       <van-col span="22">
+         <div class="list-wrapper">
+           <div class="list-item" v-text="item.problem"></div>
+           <div class="list-time" v-text="$commonTools.formatDate(item.create_time)"></div>
+           <div class="rotate-tag" :class="[item.status == 0 ? 'status-wait':'status-success']">
+            <div class="c1"></div>
+            <div class="c2"></div>
+            <div class="c3" v-if="item.status == 0">未回复</div>
+            <div class="c3" v-if="item.status == 1">已回复</div>
+          </div>
+         </div>
+       </van-col>
      </van-row>
+   </div>
  </div>
 </template>
 
@@ -51,6 +53,9 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    goDetail(id){
+      this.$router.push({name:"consultDetail",params:{id:id}});
     }
   }
 };
@@ -80,7 +85,7 @@ export default {
   word-wrap: break-word;
   width: 94%;
   min-height: 3vh;
-  max-height: 5vh;
+  max-height: 6.5vh;
 }
 .list-time {
   font-size: 0.65rem;

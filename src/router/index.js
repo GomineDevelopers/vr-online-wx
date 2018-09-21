@@ -14,7 +14,7 @@ const routes = [{
     component: () =>import('@/pages/nomember'),
     path: '/nomember',
     meta: {
-      title: '注册提示页'
+      title: '提示'
     }
   },
   {
@@ -71,7 +71,7 @@ const routes = [{
   {
     name: 'consultDetail',
     component: () =>import('@/pages/consultdetail'),
-    path: '/consultDetail',
+    path: '/consultDetail/:id',
     meta: {
       title: '咨询列表详情页',
       requiresAuth:true
