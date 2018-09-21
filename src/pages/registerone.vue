@@ -7,8 +7,8 @@
       </div>
       <div class="projectDiv">
         <div class="inputTitle">请选择您的项目名称：</div>
-        <van-field v-model="projectName" placeholder="请选择" @focus="showProject" />
-        <van-popup v-model="isShow" position="bottom" :overlay="true">
+        <van-field v-model="projectName" placeholder="请选择" @focus="showProject" readonly/>
+        <van-popup v-model="isShow" position="bottom">
           <van-picker :columns="columns" show-toolbar title="项目名称" @cancel="onCancel" @confirm="onConfirm"/>
         </van-popup>
       </div>

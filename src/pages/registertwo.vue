@@ -19,8 +19,8 @@
         <van-field v-model="department"/>
 
         <div class="inputTitle"><span class="necessary">*</span>所在城市</div>
-        <van-field v-model="city" @focus="showArea" />
-        <van-popup v-model="isShowArea" position="bottom" :overlay="false">
+        <van-field v-model="city" @focus="showArea" readonly/>
+        <van-popup v-model="isShowArea" position="bottom">
           <van-area :area-list="areaList" @cancel="cancel" @confirm="confirm" :value="code"/>
         </van-popup>
 
@@ -119,7 +119,7 @@ export default {
         })
           .then(function(response) {
             if (response.data.status == "200") {
-              alert("提交成功，跳转到审核页面");
+              vm.$router.push({name: 'noMemberStatus'});
             }
           })
           .catch(function(error) {
