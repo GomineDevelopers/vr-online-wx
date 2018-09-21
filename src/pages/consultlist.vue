@@ -35,7 +35,7 @@ export default {
         method: "get",
         url: vm.$commonTools.g_restUrl,
         params: {
-          i: "8",
+          i: "10",
           c: "entry",
           p: "advisory",
           do: "shop",

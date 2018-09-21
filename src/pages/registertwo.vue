@@ -108,7 +108,7 @@ export default {
           method: "post",
           url: vm.$commonTools.g_restUrl,
           params: {
-            i: "8",
+            i: "10",
             c: "entry",
             p: "user",
             do: "shop",
