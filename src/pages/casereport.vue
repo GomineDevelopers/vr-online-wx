@@ -10,7 +10,7 @@
         </van-popup>
 
         <div class="inputTitle"><span class="necessary">*</span>年龄</div>
-        <van-field v-model="age"/>
+        <van-field v-model="age" type="number"/>
 
         <div class="inputTitle"><span class="necessary">*</span>性别</div>
         <van-field v-model="sex" placeholder="请选择" @focus="showPop(2)" />
@@ -68,6 +68,7 @@ export default {
       diagnosis: "",
       treatmentPlan: "",
       imgUrl: "",
+      filename:'',
       otherMsg:'',
       currentDate:new Date()
     }
@@ -138,10 +139,19 @@ export default {
       this.$http({
         method: "post",
         url: vm.$commonTools.g_restUrl,
+        params: {
+          i: "10",
+          c: "entry",
+          p: "images",
+          do: "shop",
+          m: "ewei_shop",
+          ac: "add_images"
+        },
         data: vm.$qs.stringify(postData)
       })
         .then(function(response) {
-          vm.imgUrl = response.data.path;
+          vm.imgUrl = response.data.result.path;
+          vm.filename = response.data.result.filename;
         })
         .catch(function(error) {
           console.log(error);
@@ -177,16 +187,36 @@ export default {
       let vm = this;
       if(vm.validator()){
         let postData = {};
-        postData.date = vm.date;
+        postData.visit_time  = vm.date;
         postData.age = vm.age;
-        postData.sex = vm.sex;
-        postData.groups = vm.groups;
-        postData.condition = vm.condition;
+        postData.gender  = vm.sex;
+        postData.group = vm.groups;
+        postData.illness = vm.condition;
         postData.diagnosis = vm.diagnosis;
-        postData.treatmentPlan = vm.treatmentPlan;
-        postData.otherMsg = vm.otherMsg;
+        postData.programs  = vm.treatmentPlan;
+        postData.information  = vm.otherMsg;
+        postData.img   = vm.filename;
 
-        console.info(postData)
+        this.$http({
+          method: "post",
+          url: vm.$commonTools.g_restUrl,
+          params: {
+            i: "10",
+            c: "entry",
+            p: "case",
+            do: "shop",
+            m: "ewei_shop",
+            ac: "add_case"
+          },
+          data: vm.$qs.stringify(postData)
+        })
+          .then(function(response) {
+            vm.$toast.success('提交成功！');
+            WeixinJSBridge.call('closeWindow');
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }
     }
   }
