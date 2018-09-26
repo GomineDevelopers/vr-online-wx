@@ -2,31 +2,48 @@
   <div class="bgCol">
     <div class="caseReportBg">
       <div class="caseReportContent">
+
+        <div class="inputTitle"><span class="necessary">*</span>就诊日期</div>
+        <van-field v-model="date" placeholder="请选择" @focus="showPop(1)" />
+        <van-popup v-model="isShowDate"  position="bottom" :overlay="true">
+          <van-datetime-picker type="date"  @cancel="onCancel(1)" @confirm="onConfirmDate" v-model="currentDate" :formatter="formatter"/>
+        </van-popup>
+
         <div class="inputTitle"><span class="necessary">*</span>年龄</div>
         <van-field v-model="age"/>
+
         <div class="inputTitle"><span class="necessary">*</span>性别</div>
-        <van-field v-model="sex" placeholder="请选择" @focus="showSex" />
+        <van-field v-model="sex" placeholder="请选择" @focus="showPop(2)" />
         <van-popup v-model="isShowSex" position="bottom" :overlay="true">
-          <van-picker :columns="columnsex" show-toolbar title="性别" @cancel="onCancelSex" @confirm="onConfirmSex"/>
+          <van-picker :columns="columnsex" show-toolbar title="性别" @cancel="onCancel(2)" @confirm="onConfirmSex"/>
         </van-popup>
-        <div class="inputTitle">病人组</div>
-        <van-field v-model="patientGroup" placeholder="请选择" @focus="showProject" />
-        <van-popup v-model="isShow" position="bottom" :overlay="true">
-          <van-picker :columns="columns" show-toolbar title="病人组" @cancel="onCancel" @confirm="onConfirm"/>
+
+        <div class="inputTitle"><span class="necessary">*</span>分组</div>
+        <van-field v-model="groups" placeholder="请选择" @focus="showPop(3)" />
+        <van-popup v-model="isShowPro" position="bottom" :overlay="true">
+          <van-picker :columns="columns" show-toolbar title="分组" @cancel="onCancel(3)" @confirm="onConfirm"/>
         </van-popup>
-        <div class="inputTitle"><span class="necessary">*</span>病情</div>
+
+        <div class="inputTitle"><span class="necessary">*</span>主述与病史</div>
         <van-field type="textarea" v-model="condition" rows="5"/>
-        <div class="inputTitle"><span class="necessary">*</span>诊断</div>
+
+        <div class="inputTitle"><span class="necessary">*</span>检查检验及诊断</div>
         <van-field type="textarea" v-model="diagnosis"/>
+
         <div class="inputTitle"><span class="necessary">*</span>治疗方案</div>
         <van-field type="textarea" v-model="treatmentPlan"/>
-        <div class="inputTitle">上传图片</div>
+
+        <div class="inputTitle">上传资料</div>
         <van-uploader :after-read="onRead">
           <img v-if="imgUrl" :src="imgUrl" class="avatar">
           <van-icon v-else name="photo" size="36px"/>
         </van-uploader>
+
+        <div class="inputTitle">其他信息</div>
+        <van-field type="textarea" v-model="otherMsg"/>
+
         <div class="bottomDiv">
-          <van-button type="primary" size="large" @click="">提&nbsp;交</van-button>
+          <van-button type="primary" size="large" @click="submitData">提&nbsp;交</van-button>
         </div>
       </div>
     </div>
@@ -38,43 +55,81 @@ export default {
   name: "casereport",
   data() {
     return {
+      date:"",
       age: "",
       sex: "",
-      isShowSex: false,
       columnsex: ["男", "女"],
-      columns: ["病人组"],
-      isShow: false,
-      patientGroup: "",
+      isShowSex: false,
+      isShowDate:false,
+      isShowPro:false,
+      columns: ["金纳多","路犹泰","莉芙敏"],
+      groups: "",
       condition: "",
       diagnosis: "",
       treatmentPlan: "",
-      imgUrl: ""
-    };
+      imgUrl: "",
+      otherMsg:'',
+      currentDate:new Date()
+    }
   },
   methods: {
-    showProject() {
-      let vm = this;
-      vm.isShow = true;
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`
+      }else if(type === 'day'){
+        return `${value}日`
+      }
+      return value;
     },
-    onCancel() {
-      this.isShow = false;
+    showPop(type){
+      let vm = this;
+      switch(type){
+        case 1:
+          vm.isShowDate = true;
+          break;
+        case 2:
+          vm.isShowSex = true;
+          break;
+        case 3:
+          vm.isShowPro = true;
+          break;
+      }
+    },
+    onCancel(type) {
+      let vm = this;
+      switch(type){
+        case 1:
+          vm.isShowDate = false;
+          break;
+        case 2:
+          vm.isShowSex = false;
+          break;
+        case 3:
+          vm.isShowPro = false;
+          break;
+      }
     },
     onConfirm(selected) {
       let vm = this;
-      vm.patientGroup = selected;
-      vm.isShow = false;
-    },
-    showSex() {
-      let vm = this;
-      vm.isShowSex = true;
-    },
-    onCancelSex() {
-      this.isShowSex = false;
+      vm.groups = selected;
+      vm.isShowPro = false;
     },
     onConfirmSex(selected) {
       let vm = this;
       vm.sex = selected;
       vm.isShowSex = false;
+    },
+    onConfirmDate(selected) {
+      let vm = this;
+      let endvalue = new Date(selected);
+      let Y = endvalue.getFullYear() + '-';
+      let M = (endvalue.getMonth()+1 < 10 ? '0'+(endvalue.getMonth()+1) : endvalue.getMonth()+1)+'-';
+      let D = (endvalue.getDate() < 10 ? '0'+(endvalue.getDate()) : endvalue.getDate());
+
+      vm.date = Y+M+D;
+      vm.isShowDate = false;
     },
     onRead(imgCon) {
       let vm = this;
@@ -91,6 +146,48 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    validator() {
+      let vm = this;
+      let msg = "";
+      if (!vm.date) {
+        msg = "未选择就诊日期";
+      } else if (!vm.age) {
+        msg = "未填写年龄";
+      } else if (!vm.sex) {
+        msg = "未选择性别";
+      } else if (!vm.groups) {
+        msg = "未选择分组";
+      } else if (!vm.condition) {
+        msg = "未填写主述与病史";
+      } else if (!vm.diagnosis) {
+        msg = "未填写检查检验与诊断";
+      } else if (!vm.treatmentPlan) {
+        msg = "未填写治疗方案";
+      }
+
+      if (msg) {
+        vm.$toast.fail(msg);
+        return false;
+      } else {
+        return true;
+      }
+    },
+    submitData(){
+      let vm = this;
+      if(vm.validator()){
+        let postData = {};
+        postData.date = vm.date;
+        postData.age = vm.age;
+        postData.sex = vm.sex;
+        postData.groups = vm.groups;
+        postData.condition = vm.condition;
+        postData.diagnosis = vm.diagnosis;
+        postData.treatmentPlan = vm.treatmentPlan;
+        postData.otherMsg = vm.otherMsg;
+
+        console.info(postData)
+      }
     }
   }
 };

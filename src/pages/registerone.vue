@@ -30,9 +30,33 @@
         };
       },
       mounted(){
+        this.getRegister();
         this.getExistData();
       },
       methods:{
+        getRegister(){
+          let vm = this;
+          vm.$http.get('http://icampaign.com.cn/customers/noob/app/index.php',{
+            params: {
+              i:"10",
+              c:"entry",
+              p:"user",
+              do:"shop",
+              m:"ewei_shop",
+              ac:"get_info"
+            }
+          })
+            .then(function (response) {
+              if(response.data.result.is_registered == '1'){
+                vm.$toast('您已注册，处于待审核状态');
+              }else if(response.data.result.is_registered == '2'){
+                vm.$toast('您已注册，并且审核已通过');
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
         showProject(){
           let vm = this;
           vm.isShow = true;
