@@ -30,7 +30,7 @@ const routes = [{
     component: () =>import('@/pages/registerone'),
     path: '/registerone',
     meta: {
-      title: '注册页面'
+      title: '注册'
     }
   },
   {
@@ -38,7 +38,7 @@ const routes = [{
     component: () =>import('@/pages/registertwo'),
     path: '/registertwo',
     meta: {
-      title: '注册页面'
+      title: '注册'
     }
   },
   {
@@ -46,7 +46,7 @@ const routes = [{
     component: () =>import('@/pages/casereport'),
     path: '/caseReport',
     meta: {
-      title: '病例填报',
+      title: '病例论坛',
       requiresAuth:true
     }
   },
@@ -55,7 +55,7 @@ const routes = [{
     component: () =>import('@/pages/problemconsult'),
     path: '/problemConsult',
     meta: {
-      title: '问题咨询',
+      title: '疑难求助',
       requiresAuth:true
     }
   },

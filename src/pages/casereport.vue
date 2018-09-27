@@ -4,7 +4,7 @@
       <div class="caseReportContent">
 
         <div class="inputTitle"><span class="necessary">*</span>就诊日期</div>
-        <van-field v-model="date" placeholder="请选择" @focus="showPop(1)" />
+        <van-field v-model="date" placeholder="请选择" @focus="showPop(1)" readonly/>
         <van-popup v-model="isShowDate"  position="bottom" :overlay="true">
           <van-datetime-picker type="date"  @cancel="onCancel(1)" @confirm="onConfirmDate" v-model="currentDate" :formatter="formatter"/>
         </van-popup>
@@ -13,13 +13,13 @@
         <van-field v-model="age" type="number"/>
 
         <div class="inputTitle"><span class="necessary">*</span>性别</div>
-        <van-field v-model="sex" placeholder="请选择" @focus="showPop(2)" />
+        <van-field v-model="sex" placeholder="请选择" @focus="showPop(2)" readonly/>
         <van-popup v-model="isShowSex" position="bottom" :overlay="true">
           <van-picker :columns="columnsex" show-toolbar title="性别" @cancel="onCancel(2)" @confirm="onConfirmSex"/>
         </van-popup>
 
         <div class="inputTitle"><span class="necessary">*</span>分组</div>
-        <van-field v-model="groups" placeholder="请选择" @focus="showPop(3)" />
+        <van-field v-model="groups" placeholder="请选择" @focus="showPop(3)" readonly/>
         <van-popup v-model="isShowPro" position="bottom" :overlay="true">
           <van-picker :columns="columns" show-toolbar title="分组" @cancel="onCancel(3)" @confirm="onConfirm"/>
         </van-popup>
