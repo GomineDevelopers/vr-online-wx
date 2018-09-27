@@ -10,6 +10,8 @@ import Vant from 'vant';
 import 'vant/lib/vant-css/index.css';
 /*引入公共样式*/
 import '../static/css/common.css'
+// 引入图标样式
+import '../static/icons/iconfont.css'
 
 Vue.use(Vant);
 Vue.config.productionTip = false;

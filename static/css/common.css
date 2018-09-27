@@ -68,3 +68,12 @@
 .caseReportContent .van-icon{
   margin-top: 15px;
 }
+
+/*面板tab*/
+.van-tab--active {
+  color: #3fab23;
+  font-weight: 600;
+}
+.van-tabs__line{
+  background-color: #3fab23;
+}

@@ -1,8 +1,8 @@
 const commonTools = {};
 // 线上方法地址
-/*commonTools.g_restUrl = 'http://icampaign.com.cn/customers/noob/app/index.php';*/
+commonTools.g_restUrl = 'http://icampaign.com.cn/customers/noob/app/index.php';
 // 线下方法地址
-commonTools.g_restUrl = 'http://192.168.0.5/noob/app/index.php';
+/*commonTools.g_restUrl = 'http://192.168.0.5/noob/app/index.php';*/
 commonTools.setCookie = function (name, value, myDay) {
   var oDate = new Date();
   oDate.setDate(oDate.getDate() + myDay);
