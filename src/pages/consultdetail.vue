@@ -19,7 +19,7 @@
         <div class="time">
           <van-row>
             <van-col span="10"><span v-text="$commonTools.formatDate(detailData.reply_time)"></span></van-col>
-            <van-col span="8" offset="6"><div class="doctorName">[<span v-text="detailData.reply_uid"></span>]</div></van-col>
+            <van-col span="8" offset="6"><div class="doctorName">[<span v-text="detailData.reply_username"></span>]</div></van-col>
           </van-row>
         </div>
       </div>

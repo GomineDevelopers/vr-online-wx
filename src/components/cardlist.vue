@@ -13,8 +13,8 @@
                     <div class="list-name">
                       <van-icon class="icon iconfont icon-wen" color="#b3b3b3"></van-icon>
                       <span v-text="item.realname"></span>
-                      <van-icon class="icon iconfont icon-da" color="#b3b3b3" size="17px"></van-icon>
-                      <span v-text="item.reply"></span>
+                      <van-icon class="icon iconfont icon-da" color="#b3b3b3" size="17px" v-if="item.reply_username"></van-icon>
+                      <span v-text="item.reply_username"></span>
                     </div>
                   </van-col>
                 </van-row>
@@ -73,13 +73,14 @@
               }
 
               if (response.data.result.list &&response.data.result.list.length == 6) {
+                //请求的数据存在并且长度为6，则可能还会有新的一页数据存在
                 vm.loading = false;
                 vm.curPage++
               } else {
-                vm.loading  = false;//加载状态结束
+                vm.loading  = true;//加载状态结束
               }
 
-              if (response.data.result.list.length < 6) {
+              if (vm.listData.length >= response.data.result.total) {
                 //若数据已全部加载完毕，则直接将finished设置成true
                 vm.finished = true;
               }
@@ -118,8 +119,8 @@
     overflow: hidden;
     word-wrap: break-word;
     width: 94%;
-    min-height: 3vh;
-    max-height: 6.5vh;
+    min-height: 20px;
+    max-height: 35px;
   }
   .list-time {
     font-size: 0.8rem;
