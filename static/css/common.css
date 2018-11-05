@@ -77,3 +77,16 @@
 .van-tabs__line{
   background-color: #3fab23;
 }
+
+.van-checkbox__icon, .van-checkbox__label{
+  line-height: 11px;
+}
+.van-checkbox__icon .van-icon{
+  height: 12px;
+  width: 12px;
+}
+
+.van-checkbox__label {
+  margin-left: 4px;
+}
+

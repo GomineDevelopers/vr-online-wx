@@ -11,23 +11,33 @@
         <van-popup v-model="isShow" position="bottom">
           <van-picker :columns="columns" show-toolbar title="项目名称" @cancel="onCancel" @confirm="onConfirm"/>
         </van-popup>
+        <van-checkbox v-model="checked"><span class="fontSize" @click="goDetail">用户使用条款协议</span></van-checkbox>
       </div>
       <div class="bottomDiv">
         <van-button type="primary" size="large" @click="nextStep">下一步</van-button>
       </div>
     </div>
+    <van-popup v-model="show" position="right">
+      <agreement @getbackC = 'getbackF'></agreement>
+    </van-popup>
   </div>
 </template>
 
 <script>
+  import agreement from '@/components/agreement'
     export default {
       name: "registerone",
       data() {
         return {
           columns: ['银杏'],
           isShow:false,
-          projectName:'银杏'
+          projectName:'银杏',
+          checked:false,
+          show:false
         };
+      },
+      components:{
+        agreement
       },
       mounted(){
         this.getRegister();
@@ -81,6 +91,9 @@
           if(!vm.projectName){
             vm.$toast.fail('未选择项目名称');
             return false;
+          }else if(!vm.checked){
+            vm.$toast.fail('未同意用户使用条款协议');
+            return false;
           }else{
             return true;
           }
@@ -101,6 +114,12 @@
             let existData = JSON.parse(decodeURI(vm.$commonTools.getCookie("cookieData")));
             vm.projectName = existData.project_name;
           }
+        },
+        goDetail(){
+          this.show = true;
+        },
+        getbackF(){
+          this.show = false;
         }
       }
     }
@@ -124,5 +143,9 @@
   }
   .bottomDiv{
     margin:7vh 5vh;
+  }
+  .fontSize{
+    font-size: 12px;
+    color:#4169E1;
   }
 </style>

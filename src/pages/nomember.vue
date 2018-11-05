@@ -22,6 +22,7 @@
       mounted(){},
       methods:{
         register(){
+
           this.$router.replace({name:'registerOne'});
         }
       }
