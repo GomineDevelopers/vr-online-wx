@@ -11,7 +11,7 @@
         <van-popup v-model="isShow" position="bottom">
           <van-picker :columns="columns" show-toolbar title="项目名称" @cancel="onCancel" @confirm="onConfirm"/>
         </van-popup>
-        <van-checkbox v-model="checked"><span class="fontSize" @click="goDetail">用户使用条款协议</span></van-checkbox>
+        <van-checkbox v-model="checked"><span class="fontSize" @click="goDetail">同意用户使用条款协议</span></van-checkbox>
       </div>
       <div class="bottomDiv">
         <van-button type="primary" size="large" @click="nextStep">下一步</van-button>
