@@ -69,6 +69,7 @@
 
   .btnDiv{
     text-align: center;
+    margin-bottom: 2vh;
   }
 
 </style>
