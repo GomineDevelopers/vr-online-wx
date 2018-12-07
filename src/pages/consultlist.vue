@@ -2,10 +2,10 @@
   <div class="consut-list">
     <van-tabs v-model="active" @change="onClick">
       <van-tab title="我的咨询" >
-        <card-list :tabType="type"></card-list>
+        <card-list :tabType="type" :listType='"consult"'></card-list>
       </van-tab>
       <van-tab title="他人咨询">
-        <card-list :tabType="type"></card-list>
+        <card-list :tabType="type" :listType='"consult"'></card-list>
       </van-tab>
     </van-tabs>
   </div>

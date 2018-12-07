@@ -3,7 +3,10 @@
     <div class="caseReportBg">
       <div class="caseReportContent">
 
-        <div class="inputTitle"><span class="necessary">*</span>就诊日期</div>
+        <div class="inputTitle">
+          <span class="necessary">*</span>就诊日期
+          <van-button size="mini" type="primary" plain @click="goList">病例列表</van-button>
+        </div>
         <van-field v-model="date" placeholder="请选择" @focus="showPop(1)" readonly/>
         <van-popup v-model="isShowDate"  position="bottom" :overlay="true">
           <van-datetime-picker type="date"  @cancel="onCancel(1)" @confirm="onConfirmDate" v-model="currentDate" :formatter="formatter"/>
@@ -39,7 +42,7 @@
           <van-icon v-else name="photo" size="36px"/>
         </van-uploader>
 
-        <div class="inputTitle">其他信息</div>
+        <div class="inputTitle">随访情况</div>
         <van-field type="textarea" v-model="otherMsg"/>
 
         <div class="bottomDiv">
@@ -170,9 +173,13 @@ export default {
         msg = "未选择分组";
       } else if (!vm.condition) {
         msg = "未填写主述与病史";
-      } else if (!vm.diagnosis) {
+      } else if (vm.condition && vm.condition.length < 20) {
+        msg = "主述与病史不能少于20字";
+      }else if (!vm.diagnosis) {
         msg = "未填写检查检验与诊断";
-      } else if (!vm.treatmentPlan) {
+      } else if (vm.diagnosis && vm.diagnosis.length < 20) {
+        msg = "检查检验与诊断不能少于20字";
+      }else if (!vm.treatmentPlan) {
         msg = "未填写治疗方案";
       }
 
@@ -218,6 +225,15 @@ export default {
             console.log(error);
           });
       }
+    },
+    goList(){
+      let vm = this;
+      /*if(vm.isAdvisory == 0){
+        vm.$toast('您还未有病例咨询记录！');
+      }else if(vm.isAdvisory == 1){
+        vm.$router.replace({ name: "consultList" });
+      }*/
+      vm.$router.push({name:"caseList"});
     }
   }
 };

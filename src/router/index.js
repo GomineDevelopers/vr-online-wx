@@ -51,6 +51,24 @@ const routes = [{
     }
   },
   {
+    name: 'caseList',
+    component: () =>import('@/pages/caseList'),
+    path: '/caseList',
+    meta: {
+      title: '病例列表',
+      requiresAuth:true
+    }
+  },
+  {
+    name: 'caseDetail',
+    component: () =>import('@/pages/casedetail'),
+    path: '/caseDetail/:id',
+    meta: {
+      title: '病例列表详情页',
+      requiresAuth:true
+    }
+  },
+  {
     name: 'problemConsult',
     component: () =>import('@/pages/problemconsult'),
     path: '/problemConsult',

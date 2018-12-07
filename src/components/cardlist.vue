@@ -1,7 +1,7 @@
 <template>
   <van-list v-model="loading" :finished="finished" @load="onLoad">
     <div class="card-list">
-      <div v-for="item in listData" @click="goDetail(item.id)">
+      <div v-for="item in listData" @click="goDetail(item.id)" v-if="mark == 'problem'">
         <van-row type="flex" justify="center">
           <van-col span="22">
             <div class="list-wrapper">
@@ -29,6 +29,27 @@
           </van-col>
         </van-row>
       </div>
+
+      <div v-for="item in listData" @click="goDetail(item)" v-if="mark == 'case'">
+        <van-row type="flex" justify="center">
+          <van-col span="22">
+            <div class="list-wrapper">
+              <div class="list-item" v-text="item.illness"></div>
+              <div class="list-time">
+                <van-row>
+                  <van-col span="12"><span v-text="$commonTools.formatDate(item.create_time)"></span></van-col>
+                </van-row>
+              </div>
+              <div class="rotate-tag" :class="[item.check == 1 ? 'status-wait':'status-success']">
+                <div class="c1"></div>
+                <div class="c2"></div>
+                <div class="c3" v-if="item.check == 0">合格</div>
+                <div class="c3" v-if="item.check == 1">不合格</div>
+              </div>
+            </div>
+          </van-col>
+        </van-row>
+      </div>
     </div>
   </van-list>
 </template>
@@ -39,59 +60,83 @@
       data() {
         return {
           listData: [],
+          mark:'',
           loading: false,
           finished: false,
-          curPage:1
+          curPage:1,
+          pType:'',
+          acType:''
         };
       },
       props:{
-        tabType:''
+        tabType:'',
+        listType:''
       },
-      mounted() {},
+      mounted() {
+        let vm = this;
+        if(vm.listType == 'consult'){
+          vm.pType = "advisory";
+          vm.acType = "list_advisory";
+        }else if(vm.listType == 'case'){
+          vm.pType = "case";
+          vm.acType = "case_list";
+        }
+      },
       methods: {
         onLoad() {
-          let vm = this;
-          this.$http({
-            method: "get",
-            url: vm.$commonTools.g_restUrl,
-            params: {
-              i: "10",
-              c: "entry",
-              p: "advisory",
-              do: "shop",
-              m: "ewei_shop",
-              ac: "list_advisory",
-              type:vm.tabType,
-              page:vm.curPage
-            }
-          })
-            .then(function (response) {
-              if (response.data.status == "200") {
-                for (let i = 0; i < response.data.result.list.length; i++) {
-                  vm.listData.push(response.data.result.list[i]);
-                }
-              }
-
-              if (response.data.result.list &&response.data.result.list.length == 6) {
-                //请求的数据存在并且长度为6，则可能还会有新的一页数据存在
-                vm.loading = false;
-                vm.curPage++
-              } else {
-                vm.loading  = true;//加载状态结束
-              }
-
-              if (vm.listData.length >= response.data.result.total) {
-                //若数据已全部加载完毕，则直接将finished设置成true
-                vm.finished = true;
+          setTimeout(() => {
+            let vm = this;
+            this.$http({
+              method: "get",
+              url: vm.$commonTools.g_restUrl,
+              params: {
+                i: "10",
+                c: "entry",
+                p: vm.pType,
+                do: "shop",
+                m: "ewei_shop",
+                ac: vm.acType,
+                type: vm.tabType,
+                page: vm.curPage
               }
             })
-            .catch(function (error) {
-              console.log(error);
-            });
+              .then(function (response) {
+                if (response.data.status == "200") {
+                  for (let i = 0; i < response.data.result.list.length; i++) {
+                    vm.mark = response.data.result.mark;
+                    vm.listData.push(response.data.result.list[i]);
+                  }
+                  vm.loading = false;//加载状态结束
+                }else if(response.data.status == "202"){
+                  vm.finished = true;
+                }
+
+                if (vm.listData.length >= response.data.result.total) {
+                  //若数据已全部加载完毕，则直接将finished设置成true
+                  vm.finished = true;
+                }else{
+                  vm.curPage++;
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          },1000);
 
         },
-        goDetail(id) {
-          this.$router.push({name: "consultDetail", params: {id: id}});
+        goDetail(temp) {
+          let vm = this;
+          if(vm.listType == 'consult'){
+            this.$router.push({name: "consultDetail", params: {id: temp}});
+          }else if(vm.listType == 'case'){
+            if(temp.check == '0'){
+              this.$router.push({name: "caseDetail", params: {id: temp.id}});
+            }else if(temp.check == '1'){
+              vm.$notify('不合格的病例无法查看！');
+            }
+
+          }
+
         }
       }
     }

@@ -91,3 +91,8 @@
   margin-left: 10px;
 }
 
+/*mini按钮*/
+.van-button--mini{
+  width:70px;
+  float: right;
+}
