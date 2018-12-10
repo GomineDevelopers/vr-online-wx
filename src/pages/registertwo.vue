@@ -134,7 +134,9 @@ export default {
       let regE = /\w@\w*\.\w/;
       if (!vm.userName) {
         msg = "未填写姓名";
-      } else if (!vm.hospital) {
+      } else if (vm.userName.length < 2) {
+        msg = "姓名必须两个字以上";
+      }else if (!vm.hospital) {
         msg = "未填写所属医院";
       } else if (!vm.department) {
         msg = "未填写科室";
