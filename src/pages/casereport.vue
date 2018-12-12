@@ -4,7 +4,7 @@
       <div class="caseReportContent">
 
         <div class="inputTitle">
-          <span class="necessary">*</span>就诊日期
+          <span class="necessary">*</span>就诊登记时间
           <van-button size="mini" type="primary" plain @click="goList">病例列表</van-button>
         </div>
         <van-field v-model="date" placeholder="请选择" @focus="showPop(1)" readonly/>
@@ -12,10 +12,10 @@
           <van-datetime-picker type="date"  @cancel="onCancel(1)" @confirm="onConfirmDate" v-model="currentDate" :formatter="formatter"/>
         </van-popup>
 
-        <div class="inputTitle"><span class="necessary">*</span>年龄</div>
+        <div class="inputTitle"><span class="necessary">*</span>患者年龄</div>
         <van-field v-model="age" type="number"/>
 
-        <div class="inputTitle"><span class="necessary">*</span>性别</div>
+        <div class="inputTitle"><span class="necessary">*</span>患者性别</div>
         <van-field v-model="sex" placeholder="请选择" @focus="showPop(2)" readonly/>
         <van-popup v-model="isShowSex" position="bottom" :overlay="true">
           <van-picker :columns="columnsex" show-toolbar title="性别" @cancel="onCancel(2)" @confirm="onConfirmSex"/>
@@ -27,22 +27,36 @@
           <van-picker :columns="columns" show-toolbar title="分组" @cancel="onCancel(3)" @confirm="onConfirm"/>
         </van-popup>
 
-        <div class="inputTitle"><span class="necessary">*</span>主述与病史</div>
+        <div class="inputTitle">
+          <span class="necessary">*</span>主述与病史
+          <van-icon name="arrow-up" />
+          <div class="subTitle">(主诉指首次就诊时出现的症状，例如剧烈旋转、眼振、恶心、呕吐、出汗、面色苍白、耳鸣、耳聋、平衡障碍、听觉障碍、感知障碍等。既往史指曾患有相关疾病，包括高血压、耳石症、梅尼埃症、埃尔茨海默症、突发性耳聋、老年性耳聋等。如果曾经治疗，应提供治疗史，包括治疗方法、起止时间)</div>
+        </div>
         <van-field type="textarea" v-model="condition" rows="5"/>
 
-        <div class="inputTitle"><span class="necessary">*</span>检查检验及诊断</div>
+        <div class="inputTitle">
+          <span class="necessary">*</span>检查检验及诊断
+          <span class="subTitle">(提供辅助检查主要指标结果，包括听力检查、前庭功能检查、颞骨CT、内听道MR、MMSE、HDS、HDS)</span>
+        </div>
         <van-field type="textarea" v-model="diagnosis"/>
 
-        <div class="inputTitle"><span class="necessary">*</span>治疗方案</div>
+        <div class="inputTitle">
+          <span class="necessary">*</span>治疗方案
+          <span class="subTitle">(应包括治疗中所有的治疗方式、药物及服用剂量、服用时间)</span>
+        </div>
         <van-field type="textarea" v-model="treatmentPlan"/>
 
-        <div class="inputTitle">上传资料</div>
+        <div class="inputTitle">上传资料
+          <span class="subTitle">(相关检查数据，不得透露病人个人信息)</span>
+        </div>
         <van-uploader :after-read="onRead">
           <img v-if="imgUrl" :src="imgUrl" class="avatar">
           <van-icon v-else name="photo" size="36px"/>
         </van-uploader>
 
-        <div class="inputTitle">随访情况</div>
+        <div class="inputTitle">随访情况
+          <span class="subTitle">(一周后复诊或随访，病人具体哪些症状治愈、改善、未改善)</span>
+        </div>
         <van-field type="textarea" v-model="otherMsg"/>
 
         <div class="bottomDiv">
@@ -73,7 +87,8 @@ export default {
       imgUrl: "",
       filename:'',
       otherMsg:'',
-      currentDate:new Date()
+      currentDate:new Date(),
+      activeNames:['1']
     }
   },
   methods: {
@@ -271,4 +286,10 @@ export default {
 .avatar {
   width: 50%;
 }
+
+  .subTitle{
+    font-weight: 500;
+    font-size: 12px;
+    color: #999999;
+  }
 </style>
