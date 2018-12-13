@@ -81,12 +81,12 @@
         </van-popup>
 
         <div class="inputTitle">
-          <van-row
+          <!--<van-row
             type="flex"
             align="center"
             justify="space-between"
           >
-            <van-col span="12"><span class="necessary">*</span>主述与病史</van-col>
+            <van-col span="12"><span class="necessary">*</span>主述与既往史</van-col>
             <van-col span="2">
               <img
                 src="../../static/images/down.png"
@@ -102,12 +102,11 @@
                 style="width:16px;"
               />
             </van-col>
-          </van-row>
-
-          <div
+          </van-row>-->
+          <span class="necessary">*</span>主述与既往史
+          <span
             class="subTitle"
-            v-show="!isShow"
-          >(主诉指首次就诊时出现的症状，例如剧烈旋转、眼振、恶心、呕吐、出汗、面色苍白、耳鸣、耳聋、平衡障碍、听觉障碍、感知障碍等。既往史指曾患有相关疾病，包括高血压、耳石症、梅尼埃症、埃尔茨海默症、突发性耳聋、老年性耳聋等。如果曾经治疗，应提供治疗史，包括治疗方法、起止时间)</div>
+          >(主诉指首次就诊时出现的症状，例如剧烈旋转、眼振、恶心、呕吐、出汗、面色苍白、耳鸣、耳聋、平衡障碍、听觉障碍、感知障碍等。既往史指曾患有相关疾病，包括高血压、耳石症、梅尼埃症、埃尔茨海默症、突发性耳聋、老年性耳聋等。如果曾经治疗，应提供治疗史，包括治疗方法、起止时间)</span>
         </div>
         <van-field
           type="textarea"
@@ -116,7 +115,7 @@
         />
 
         <div class="inputTitle">
-          <span class="necessary">*</span>检查检验及诊断
+          <span class="necessary">*</span>辅助检查及初步诊断
           <span class="subTitle">(提供辅助检查主要指标结果，包括听力检查、前庭功能检查、颞骨CT、内听道MR、MMSE、HDS、HDS)</span>
         </div>
         <van-field
