@@ -86,7 +86,7 @@
             align="center"
             justify="space-between"
           >
-            <van-col span="12"><span class="necessary">*</span>主述与既往史</van-col>
+            <van-col span="12"><span class="necessary">*</span>主诉与既往史</van-col>
             <van-col span="2">
               <img
                 src="../../static/images/down.png"
@@ -103,7 +103,7 @@
               />
             </van-col>
           </van-row>-->
-          <span class="necessary">*</span>主述与既往史
+          <span class="necessary">*</span>主诉与既往史
           <span
             class="subTitle"
           >(主诉指首次就诊时出现的症状，例如剧烈旋转、眼振、恶心、呕吐、出汗、面色苍白、耳鸣、耳聋、平衡障碍、听觉障碍、感知障碍等。既往史指曾患有相关疾病，包括高血压、耳石症、梅尼埃症、埃尔茨海默症、突发性耳聋、老年性耳聋等。如果曾经治疗，应提供治疗史，包括治疗方法、起止时间)</span>

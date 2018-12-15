@@ -21,24 +21,24 @@
       <div class="caseCard font1">
         <van-row class="caseCardRow">
           <van-col span="17">
-            <span>就诊时间：</span>{{$commonTools.formatDate(detailData.visit_time)}}
+            <span>就诊登记时间：</span>{{$commonTools.formatDate(detailData.visit_time)}}
           </van-col>
           <van-col span="7">
-            <span>年龄：</span>{{detailData.age}}
+            <span>患者年龄：</span>{{detailData.age}}
           </van-col>
         </van-row>
         <van-row>
           <van-col span="17">
-            <span>分&emsp;&emsp;组：</span>{{detailData.group}}
+            <span>分&emsp;&emsp;&emsp;&emsp;组：</span>{{detailData.group}}
           </van-col>
           <van-col span="7">
-            <span>性别：</span>{{detailData.gender}}
+            <span>患者性别：</span>{{detailData.gender}}
           </van-col>
         </van-row>
       </div>
 
       <div class="caseTitle">
-        <van-tag mark plain type="primary">检查检验及诊断</van-tag>
+        <van-tag mark plain type="primary">辅助检查及初步诊断</van-tag>
       </div>
       <div class="caseCard">
         <span v-text="detailData.diagnosis"></span>
