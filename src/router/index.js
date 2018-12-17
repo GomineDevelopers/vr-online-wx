@@ -48,7 +48,7 @@ const routes = [
     path: '/caseReport',
     meta: {
       title: '病例论坛',
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
