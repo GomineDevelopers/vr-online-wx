@@ -30,7 +30,7 @@
         </van-row>
       </div>
 
-      <div v-for="item in listData" @click="goDetail(item)" v-if="mark == 'case'">
+      <!--<div v-for="item in listData" @click="goDetail(item)" v-if="mark == 'case'">
         <van-row type="flex" justify="center">
           <van-col span="22">
             <div class="list-wrapper">
@@ -49,7 +49,7 @@
             </div>
           </van-col>
         </van-row>
-      </div>
+      </div>-->
     </div>
   </van-list>
 </template>
@@ -77,10 +77,10 @@
         if(vm.listType == 'consult'){
           vm.pType = "advisory";
           vm.acType = "list_advisory";
-        }else if(vm.listType == 'case'){
+        }/*else if(vm.listType == 'case'){
           vm.pType = "case";
           vm.acType = "case_list";
-        }
+        }*/
       },
       methods: {
         onLoad() {
@@ -128,14 +128,14 @@
           let vm = this;
           if(vm.listType == 'consult'){
             this.$router.push({name: "consultDetail", params: {id: temp}});
-          }else if(vm.listType == 'case'){
+          }/*else if(vm.listType == 'case'){
             if(temp.check == '0'){
               this.$router.push({name: "caseDetail", params: {id: temp.id}});
             }else if(temp.check == '1'){
               vm.$notify('不合格的病例无法查看！');
             }
 
-          }
+          }*/
 
         }
       }

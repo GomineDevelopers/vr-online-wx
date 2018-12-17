@@ -2,19 +2,19 @@
   <div class="consut-list">
     <van-tabs v-model="active" @change="onClick">
       <van-tab title="我的病例" >
-        <card-list :tabType="type" :listType='"case"'></card-list>
+        <card-list-case :tabType="type" :listType='"case"'></card-list-case>
       </van-tab>
       <van-tab title="他人病例">
-        <card-list :tabType="type" :listType='"case"'></card-list>
+        <card-list-case :tabType="type" :listType='"case"'></card-list-case>
       </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script>
-  import cardlist from '@/components/cardlist.vue'
+  import cardlistCase from '@/components/cardlistCase.vue'
     export default {
-      name: "caseList",
+      name: "caseListCase",
       data() {
         return {
           type:0,
@@ -28,7 +28,7 @@
         }
       },
       components: {
-        'card-list': cardlist
+        'card-list-case': cardlistCase
       }
     }
 </script>
