@@ -28,7 +28,8 @@
         <van-col span="20">
             <van-row type="flex">
                 <van-col span="24">
-                  <textarea class="consult-inputBox" v-model="problemContent" maxlength="400"  placeholder="请输入您的问题~"></textarea>
+                  <textarea class="consult-inputBox" v-model="problemContent" maxlength="400"
+                    placeholder="(1)如需得到文献原文，请写明文献的标题、主要作者、出处、期刊名称、发表时间等，并提供接收文献的个人邮箱地址，可大约三天后在邮箱查看；(2)如咨询临床疑难病例，请描述病人年龄、性别、主诉、辅助检查结果、既往史和疑难问题，并关注定期组织的病例讨论；(3)如咨询关于产品的问题，请写明产品名称和问题，三天后可以在公众号查看答案"></textarea>
                    <div class="count">
                        <span v-text="problemContent.length"></span>
                        <span>/</span>
@@ -56,7 +57,8 @@ export default {
     return {
       consultUserName: "",
       problemContent: "",
-      isAdvisory:""
+      isAdvisory:"",
+      texts:''
     };
   },
   mounted() {
@@ -160,7 +162,7 @@ export default {
   color: #333333;
   font-weight: bold;
 }
-.problemConsult.sub-comment {
+.problemConsult .sub-comment {
   font-size: 1rem;
 }
 .problemConsult .consult-record {
