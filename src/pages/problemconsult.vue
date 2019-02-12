@@ -107,7 +107,13 @@ export default {
         })
           .then(function(response) {
             if (response.data.status == "200") {
-              vm.$router.replace({ name: "consultList" });
+              vm.$dialog.alert({
+                title: '提示',
+                message: '内容提交成功！'
+              }).then(() => {
+                vm.$router.replace({ name: "consultList" });
+              });
+
             }
           })
           .catch(function(error) {

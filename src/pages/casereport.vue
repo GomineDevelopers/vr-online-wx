@@ -1,6 +1,6 @@
 <template>
   <div class="bgCol">
-    <div class="caseReportBg">
+    <div v-if="showDiv" class="caseReportBg">
       <div class="caseReportContent">
 
         <div class="inputTitle">
@@ -165,6 +165,13 @@
         </div>
       </div>
     </div>
+    <div v-if="!showDiv" class="noContent">
+      <div class="noContent_logo">
+        <img src="../../static/images/nocontent_logo.png">
+        <div class="noContent_texts">抱歉，病例项目I期已于1月28日结束，<br>II期即将启动，敬请关注</div>
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -190,7 +197,8 @@ export default {
       filename: '',
       otherMsg: '',
       currentDate: new Date(),
-      activeNames: ['1']
+      activeNames: ['1'],
+      showDiv:false
     }
   },
   methods: {
@@ -405,4 +413,31 @@ export default {
   -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
   -o-transform: rotate(180deg); /* Opera */
 }
+
+  .noContent{
+    background-image: url("../../static/images/nocontent_bg.png");
+    background-size: 100% 100%;
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .noContent_logo{
+    position: absolute;
+    left: 50%;
+    top: 36%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    text-align: center;
+  }
+
+  .noContent_logo img{
+    width: 50vw;
+  }
+
+  .noContent_texts{
+    color:#7f7b7b;
+    padding-top: 2vh;
+  }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <van-list v-model="loading" :finished="finished" @load="onLoad">
     <div class="card-list">
+      <div class="loading">
+        <van-loading  v-if="loaded"/>
+      </div>
       <div v-for="item in listData" @click="goDetail(item.id)" v-if="mark == 'problem'">
         <van-row type="flex" justify="center">
           <van-col span="22">
@@ -65,7 +68,8 @@
           finished: false,
           curPage:1,
           pType:'',
-          acType:''
+          acType:'',
+          loaded:true
         };
       },
       props:{
@@ -108,12 +112,15 @@
                   }
                   vm.loading = false;//加载状态结束
                 }else if(response.data.status == "202"){
+                  vm.mark = "";
                   vm.finished = true;
+                  vm.loaded = false;
                 }
 
                 if (vm.listData.length >= response.data.result.total) {
                   //若数据已全部加载完毕，则直接将finished设置成true
                   vm.finished = true;
+                  vm.loaded = false;
                 }else{
                   vm.curPage++;
                 }
@@ -219,4 +226,10 @@
     border-top: 7.5vh solid #d26e7a;
   }
 
+  .loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 </style>

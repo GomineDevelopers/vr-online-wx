@@ -84,7 +84,7 @@ const routes = [
     path: '/consultList',
     meta: {
       title: '咨询列表',
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {
